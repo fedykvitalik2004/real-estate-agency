@@ -30,6 +30,7 @@ public class PropertyServiceImpl implements PropertyService {
     private RealtorRepository realtorRepository;
 
     @Override
+    @PreAuthorize("authentication.principal.id == #propertySaveDto.realtorId")
     public PropertyDtoResponse save(final PropertySaveDto propertySaveDto) {
         final boolean realtorExists = realtorRepository.existsById(propertySaveDto.getRealtorId());
         if (!realtorExists) throw new NotFoundException("exception_user_not_found");
